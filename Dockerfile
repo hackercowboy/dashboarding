@@ -35,11 +35,10 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 WORKDIR /usr/src/app
 
 # Move package.json to filesystem
-COPY package.json ./
+COPY package.json yarn.lock ./
 
 # Install npm modules for the application
-RUN JOBS=MAX npm install --unsafe-perm --production && npm cache clean --force && \
-  rm -rf /tmp/* && node_modules/.bin/electron-rebuild
+RUN yarn install && node_modules/.bin/electron-rebuild
 
 # Move app to filesystem
 COPY ./ ./
