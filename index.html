@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <style>
+    * {
+      font-family: Verdana, Lucida Sans, Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        margin: 0px auto;
+        background-color:#000;
+        overflow:hidden;
+    }
+
+    #connection-error {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #e94c0a;
+      color: white;
+      padding: 20px;
+      font-size: 16pt;
+      width: 100%;
+      display: none;
+    }
+
+    iframe {
+      border: none;
+      overflow:hidden;
+    }
+  </style>
+  <script>
+    var electron = require('electron');
+    var currentWindow = electron.remote.getCurrentWindow();
+    window.$ = window.jQuery = require('jquery');
+    window.md5 = window.jQuery = require('blueimp-md5');
+
+    var connected = false;
+    var width = currentWindow.DASHBOARDING_WIDTH;
+    var height = currentWindow.DASHBOARDING_HEIGHT;
+    var dashboardUrls = currentWindow.DASHBOARDING_URLS.split(',');
+    var interval = currentWindow.DASHBOARDING_INTERVAL;
+    var dashboardIds = dashboardUrls.map(function(url) { return md5(url); });
+    var currentDashboard = dashboardIds[0];
+
+    function checkInternetConnection() {
+      $.ajax({
+        type: 'GET',
+        url: dashboardUrls[0],
+        success() {
+          connected = true;
+          $('#connection-error').hide();
+        },
+        error() {
+          connected = false;
+          $('#connection-error').show();
+        },
+      });
+    };
+
+    function renderDashboards() {
+      dashboardUrls.forEach(function(dashboardUrl) {
+        const dashboardId = md5(dashboardUrl);
+        $('#content').append(`<iframe id="${dashboardId}" src="${dashboardUrl}" style="width: ${width}px; height: ${height}px;" sandbox="allow-scripts allow-same-origin"/>`);
+      });
+      $(`#${dashboardIds[0]}`).show();
+    };
+
+    function moveToNextDashboard() {
+      const index = dashboardIds.indexOf(currentDashboard);
+      const next = index + 2 > dashboardIds.length ? 0 : index + 1;
+      $(`#${currentDashboard}`).hide();
+      currentDashboard = dashboardIds[next];
+      $(`#${currentDashboard}`).show();
+    };
+
+    $(() => {
+      setInterval(checkInternetConnection, 60000);
+      if (dashboardUrls.length > 1) {
+        setInterval(moveToNextDashboard, interval);
+      }
+      renderDashboards();
+    });
+  </script>
+</head>
+
+<body>
+  <div id="connection-error">No internet connection!</div>
+  <div id="content">
+  </div>
+</body>
+
+</html>

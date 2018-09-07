@@ -1,0 +1,24 @@
+{
+  "name": "dashboarding",
+  "version": "1.0.0",
+  "main": "main.js",
+  "repository": "git@github.com:hackercowboy/dashboarding.git",
+  "author": "David Uebelacker",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron -r babel-register .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "babel-eslint": "^9.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "blueimp-md5": "^2.10.0",
+    "electron": "^2.0.8",
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "jquery": "^3.3.1"
+  }
+}
