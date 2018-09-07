@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libxcb-util0 \
   xdg-utils \
   libdbus-1-dev \
-  libgtk2.0-dev \
+  libgtk-3-dev \
   libnotify-dev \
   libgnome-keyring-dev \
   libgconf2-dev \
@@ -24,8 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libsmbclient \
   libssh-4 \
   fbset \
-  redis-server \
-  libexpat-dev && rm -rf /var/lib/apt/lists/*
+  libexpat-dev
 
 RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
   && echo "" >> /etc/X11/xinit/xserverrc \

@@ -11,4 +11,4 @@ umount /dev/shm && mount -t tmpfs shm /dev/shm
 
 date -s "`curl -v --silent http://google.com/ 2>&1 \ | grep Date | sed -e 's/< Date: //'`"
 rm /tmp/.X0-lock &>/dev/null || true
-startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app --enable-logging
+startx /usr/src/app/node_modules/electron/dist/electron -r babel-register /usr/src/app --enable-logging

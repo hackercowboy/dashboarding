@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 
 const CONFIG = {
-  DASHBOARDING_WIDTH: parseInt(process.env.DASHBOARDING_WIDTH || 1950, 10),
+  DASHBOARDING_WIDTH: parseInt(process.env.DASHBOARDING_WIDTH || 1920, 10),
   DASHBOARDING_HEIGHT: parseInt(process.env.DASHBOARDING_HEIGHT || 1080, 10),
   DASHBOARDING_TITLE: process.env.DASHBOARDING_TITLE || 'Dashboarding',
   DASHBOARDING_URLS: process.env.DASHBOARDING_URLS || 'http://dashingdemo.herokuapp.com/sample',
@@ -21,9 +21,10 @@ app.on('ready', () => {
     width: CONFIG.DASHBOARDING_WIDTH,
     height: CONFIG.DASHBOARDING_HEIGHT,
     title: CONFIG.TITLE,
+    kiost: true,
+    frame: false,
     webPreferences: { webSecurity: false, allowRunningInsecureContent: true },
   });
-
 
   window.DASHBOARDING_WIDTH = CONFIG.DASHBOARDING_WIDTH;
   window.DASHBOARDING_HEIGHT = CONFIG.DASHBOARDING_HEIGHT;
