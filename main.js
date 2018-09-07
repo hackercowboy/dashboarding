@@ -24,6 +24,7 @@ app.on('ready', () => {
     webPreferences: { webSecurity: false, allowRunningInsecureContent: true },
   });
 
+
   window.DASHBOARDING_WIDTH = CONFIG.DASHBOARDING_WIDTH;
   window.DASHBOARDING_HEIGHT = CONFIG.DASHBOARDING_HEIGHT;
   window.DASHBOARDING_URLS = CONFIG.DASHBOARDING_URLS;
